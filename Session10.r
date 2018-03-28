@@ -89,9 +89,80 @@ cat(body)
 #10 header and body of all emails
 
 breaks = str_locate(emails, "\n\n") 
-headers = str_sub(emails, end = breaks[,1]) #start from 1. Need where we are ending
-bodies = str_sub(emails, start = breaks[,2])
+headers = str_sub(emails, end = breaks[,1]) #breaks--> no row, col = 1(start intbl) is end of hdr.Need where we are ending
+bodies = str_sub(emails, start = breaks[,2]) #breaks-->col =2 i.e end is the start for body
+
 
 cat(bodies[6])
+
+
+
+##########Lab 2
+
+#1
+fruit = c("apple","banana","pear","pineapple")
+
+
+#2 
+
+#detect if pattern is found
+str_detect(fruit,"a")
+
+#if starts with a
+str_detect(fruit,"^a")
+
+#ends with an 'a'
+str_detect(fruit, "a$")
+
+#if any of chars present - a or e or i or o or u
+str_detect(fruit, "[aeiou]")
+
+#if any of chars present a or b or c or d
+str_detect(fruit, "[a-d]")
+
+#if any numeric ele from 0 to 9 present
+str_detect(fruit, "[0-9]")
+
+
+#3
+
+#pattern that starts with an 'a' and ends with an 'e'
+
+
+#starts with a -- then any char [a-z] -- * match predceding pattern ---ends with e(e$)
+str_detect(fruit, "^a[a-z]*e$")   
+
+#or (. could be any char or number after a)
+str_detect(fruit, "^a.*e$")   
+
+
+
+
+#4 parser to detect phone numbers
+
+#RE to detect the below phone number format
+phone = "213 740 4826"
+str_detect(phone, "[0-9]{3} [0-9]{3} [0-9]{4}")
+
+
+#RE to detect both the below formats
+phone = c("213 740 4826",
+          "213-740-4826")
+
+str_detect(phone, "[0-9]{3}[ -][0-9]{3}[ -][0-9]{4}")
+
+
+phone = c("213 740 4826",
+          "213-740-4826",
+          "(213) 740 4826")  #bracket is optional - so use [(] and [)]
+
+str_detect(phone, "[(]?[0-9]{3}[)]?[ -][0-9]{3}[ -][0-9]{4}")
+
+
+
+#5
+str_extract_all(bodies, "[(]?[0-9]{3}[)]?[ -][0-9]{3}[ -][0-9]{4}")
+
+
 
 
